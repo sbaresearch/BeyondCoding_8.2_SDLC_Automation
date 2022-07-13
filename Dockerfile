@@ -1,8 +1,11 @@
 FROM maven:3.8.4-jdk-11-slim
 
-COPY src /usr/src/app/src
-COPY pom.xml /usr/src/app
+RUN useradd -m -d /home/user -s /bin/bash user
+USER user
 
-RUN mvn -f /usr/src/app/pom.xml clean package assembly:single
+COPY --chown=user:user pom.xml /home/user/src/app/
+COPY --chown=user:user src /home/user/src/app/src
 
-ENTRYPOINT ["java", "-jar", "/usr/src/app/target/automation-demo-1.0-SNAPSHOT-jar-with-dependencies.jar"]
+RUN mvn -f /home/user/src/app/pom.xml -B package assembly:single
+
+ENTRYPOINT ["java", "-jar", "/home/user/src/app/target/automation-demo-1.0-SNAPSHOT-jar-with-dependencies.jar"]
