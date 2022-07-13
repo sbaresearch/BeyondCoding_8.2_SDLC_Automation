@@ -1,6 +1,6 @@
 package com.example.app;
 
-import java.util.Random;
+import java.security.SecureRandom;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -13,7 +13,7 @@ public class App {
 
     public static void main(String[] args) {
         logger.info("Generating a secure random number...");
-        int number = new Random().nextInt();
+        int number = new SecureRandom().nextInt();
         System.out.println("Secure random number: " + number);
     }
 }
