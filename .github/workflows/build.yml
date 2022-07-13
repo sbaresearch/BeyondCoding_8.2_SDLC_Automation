@@ -55,8 +55,18 @@ jobs:
     - name: Test with Maven
       run: mvn -B test
 
+  dockerfile-lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2 
+      - uses: hadolint/hadolint-action@v2.0.0
+        with:
+          dockerfile: Dockerfile
+
   docker:
-    needs: build
+    needs:
+      - build
+      - dockerfile-lint
     runs-on: ubuntu-latest
     permissions:
       contents: read
