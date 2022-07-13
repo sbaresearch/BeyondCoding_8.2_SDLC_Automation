@@ -1,4 +1,4 @@
-FROM maven:3.8.4-jdk-11-slim
+FROM maven:3.8-jdk-11-slim
 
 RUN useradd -m -d /home/user -s /bin/bash user
 USER user
